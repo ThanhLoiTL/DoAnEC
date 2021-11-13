@@ -1,5 +1,6 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
+const salt = bcrypt.genSaltSync(10);
 
 let handleUserLogin = (email, password) => {
     return new Promise(async (resolve, reject) => {
@@ -65,7 +66,51 @@ let checkEmail = (email) => {
     })
 }
 
+let handleRegister = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: {
+                    email: data.email
+                }
+            });
+            if (user) {
+                resolve({
+                    error: 1,
+                    message: 'Email da ton tai'
+                })
+            }
+            let hashPasswordFormBcrypt = await hashUsePassword(data.password);
+            await db.User.create({
+                fullName: data.fullName,
+                email: data.email,
+                password: hashPasswordFormBcrypt,
+                phone: data.phone,
+                address: data.address,
+                roleId: data.roleId
+            })
+            resolve({
+                errCode: 0,
+                message: 'OK'
+            });
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let hashUsePassword = (password) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let hashPassword = await bcrypt.hashSync(password, salt);
+            resolve(hashPassword);
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
 
 module.exports = {
     handleUserLogin: handleUserLogin,
+    handleRegister: handleRegister
 }
