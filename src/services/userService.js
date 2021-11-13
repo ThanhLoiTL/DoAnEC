@@ -76,9 +76,9 @@ let handleRegister = (data) => {
             });
             if (user) {
                 resolve({
-                    error: 1,
+                    errCode: 1,
                     message: 'Email da ton tai'
-                })
+                });
             }
             let hashPasswordFormBcrypt = await hashUsePassword(data.password);
             await db.User.create({
@@ -110,7 +110,32 @@ let hashUsePassword = (password) => {
     })
 }
 
+let getUser = (useId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let userData = {};
+            let user = await db.User.findOne({
+                where: {
+                    id: useId
+                }
+            });
+            if (!user) {
+                userData.errCode = 1;
+                userData.message = 'User not found';
+            } else {
+                userData.errCode = 0;
+                userData.message = 'OK';
+                userData.user = user;
+            }
+            resolve(userData);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
-    handleRegister: handleRegister
+    handleRegister: handleRegister,
+    getUser: getUser
 }
