@@ -26,7 +26,7 @@ let handleRegister = async (req, res) => {
 }
 
 let getUser = async (req, res) => {
-    let userId = req.body.id;
+    let userId = req.query.id;
     if (!userId) {
         return res.status(500).json({
             errCode: 1,

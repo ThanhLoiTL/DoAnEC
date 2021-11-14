@@ -5,6 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+
+    <script>
+        var socket = io("http://localhost:8082");
+        $(document).ready(function () {
+            $("#nhan").click(function () {
+                socket.emit("SendToServer", "Hello!");
+            });
+        });
+        socket.on("SendToClient", function (data) {
+            $("#noidung").append(data + ", ");
+        })
+    </script>
 </head>
 
 <body>
@@ -12,6 +26,9 @@
     <p>
         <%= data%>
     </p>
+
+    <button type="button" id="nhan">Click</button>
+    <h2 id="noidung"></h2>
 </body>
 
 </html>

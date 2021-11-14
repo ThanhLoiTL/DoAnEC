@@ -1,6 +1,7 @@
 import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
+import webController from "../controllers/webController";
 
 let router = express.Router();
 
@@ -16,7 +17,10 @@ let initWebRoutes = (app) => {
     //API
     router.post('/api/login', userController.handleLogin);
     router.post('/api/register', userController.handleRegister);
-    router.get('/api/getUser', userController.getUser);
+    router.get('/api/get-user', userController.getUser);
+
+    router.get('/api/get-webs', webController.getListWeb);
+    router.get('/api/get-banner-by-webId', webController.getBannerByWebId);
 
     return app.use("/", router);
 }
