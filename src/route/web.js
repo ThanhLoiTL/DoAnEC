@@ -2,6 +2,7 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import webController from "../controllers/webController";
+import auctionController from "../controllers/auctionController";
 
 let router = express.Router();
 
@@ -21,6 +22,7 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-webs', webController.getListWeb);
     router.get('/api/get-banner-by-webId', webController.getBannerByWebId);
+    router.get('/api/get-auction-by-banner', auctionController.getAuctionByBanner);
 
     return app.use("/", router);
 }

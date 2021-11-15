@@ -87,7 +87,7 @@ let handleRegister = (data) => {
                 password: hashPasswordFormBcrypt,
                 phone: data.phone,
                 address: data.address,
-                roleId: data.roleId
+                roleId: 2
             })
             resolve({
                 errCode: 0,

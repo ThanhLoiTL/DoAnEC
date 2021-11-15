@@ -20,7 +20,11 @@ let getBannerByWebId = (webId) => {
                 where: {
                     webId: webId
                 },
-                raw: true
+                include: [{
+                    model: db.Auction
+                }],
+                raw: true,
+                nest: true
             })
             resolve(listBanner);
         } catch (e) {

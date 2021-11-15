@@ -18,6 +18,9 @@ module.exports = {
             price: {
                 type: Sequelize.BIGINT
             },
+            image: {
+                type: Sequelize.STRING
+            },
             time: {
                 type: Sequelize.DATE
             },

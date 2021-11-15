@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         timeEnd: DataTypes.TIME,
         date: DataTypes.DATE,
         auctionMoney: DataTypes.BIGINT,
+        status: DataTypes.INTEGER,
         bannerId: DataTypes.INTEGER
     }, {
         sequelize,
