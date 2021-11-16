@@ -1,11 +1,14 @@
+import socketService from '../services/socketService';
+
 let getSocket = (io) => {
     io.on("connection", (socket) => {
         console.log("Co nguoi dang ket noi");
 
-        socket.on("SendToServer", (data) => {
-            console.log(data);
-            let user = 'Loi';
-            io.sockets.emit("SendToClient", user);
+        socket.on("SendToServer", async (idAuction, price) => {
+            console.log(idAuction);
+            console.log(price);
+            let auction = await socketService.setPriceAuction(idAuction, price);
+            io.sockets.emit("SendToClient", JSON.stringify(auction));
         });
     });
 }

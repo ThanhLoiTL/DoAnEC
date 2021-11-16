@@ -11,13 +11,15 @@
     <script>
         var socket = io("http://localhost:8082");
         $(document).ready(function () {
-            $("#nhan").click(function () {
-                socket.emit("SendToServer", "Hello!");
+            $("#btn").click(function () {
+                socket.emit("SendToServer", $("#idAuction").val(), $("#price").val());
             });
         });
-        socket.on("SendToClient", function (data) {
-            $("#noidung").append(data + ", ");
+        socket.on("SendToClient", function (auction) {
+            $("#noidung").append(auction);
         })
+
+
     </script>
 </head>
 
@@ -28,6 +30,9 @@
     </p>
 
     <button type="button" id="nhan">Click</button>
+    <input type="number" id="idAuction" />
+    <input type="number" id="price" />
+    <input type="button" id="btn" value="Send" />
     <h2 id="noidung"></h2>
 </body>
 
