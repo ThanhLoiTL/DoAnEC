@@ -14,6 +14,18 @@ let getAuctionByBanner = async (req, res) => {
     });
 }
 
+let postWinAuction = async (req, res) => {
+    let userId = req.body.userId;
+    let auctionId = req.body.auctionId;
+    if (!userId || !auctionId) {
+        return res.status(500).json({
+            message: 'Missing value'
+        });
+    }
+    auctionService.postWinAuction(userId, auctionId);
+}
+
 module.exports = {
-    getAuctionByBanner: getAuctionByBanner
+    getAuctionByBanner: getAuctionByBanner,
+    postWinAuction: postWinAuction
 }

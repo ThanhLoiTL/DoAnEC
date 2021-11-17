@@ -24,6 +24,8 @@ let initWebRoutes = (app) => {
     router.get('/api/get-banner-by-webId', webController.getBannerByWebId);
     router.get('/api/get-auction-by-banner', auctionController.getAuctionByBanner);
 
+    router.post('/api/postWinAuction', auctionController.postWinAuction);
+
     return app.use("/", router);
 }
 

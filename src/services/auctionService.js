@@ -21,6 +21,21 @@ let getAuctionByBanner = (bannerId) => {
     })
 }
 
+let postWinAuction = (userId, auctionId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await db.AuctionUser.create({
+                userId: userId,
+                auctionId: auctionId
+            })
+            resolve("Created");
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
-    getAuctionByBanner: getAuctionByBanner
+    getAuctionByBanner: getAuctionByBanner,
+    postWinAuction: postWinAuction
 }
