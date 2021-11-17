@@ -12,7 +12,7 @@
         var socket = io("http://localhost:8082");
         $(document).ready(function () {
             $("#btn").click(function () {
-                socket.emit("SendToServer", $("#idAuction").val(), $("#price").val());
+                socket.emit("SendToServer", $("#idAuction").val(), $("#price").val(), $("#idUser").val());
             });
         });
         socket.on("SendToClient", function (auction) {
@@ -32,6 +32,7 @@
     <button type="button" id="nhan">Click</button>
     <input type="number" id="idAuction" />
     <input type="number" id="price" />
+    <input type="number" id="idUser" />
     <input type="button" id="btn" value="Send" />
     <h2 id="noidung"></h2>
 </body>

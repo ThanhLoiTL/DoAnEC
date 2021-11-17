@@ -134,8 +134,24 @@ let getUser = (useId) => {
     });
 }
 
+let getUserInAuction = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: {
+                    id: userId
+                }
+            });
+            resolve(user);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleRegister: handleRegister,
-    getUser: getUser
+    getUser: getUser,
+    getUserInAuction: getUserInAuction
 }
