@@ -16,6 +16,9 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.INTEGER
             },
+            yourBanner: {
+                type: Sequelize.STRING
+            },
             status: {
                 allowNull: false,
                 type: Sequelize.INTEGER

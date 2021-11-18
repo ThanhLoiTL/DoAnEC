@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     WinAuction.init({
         auctionId: DataTypes.INTEGER,
         userId: DataTypes.INTEGER,
+        yourBanner: DataTypes.STRING,
         status: DataTypes.INTEGER
     }, {
         sequelize,
