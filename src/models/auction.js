@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             });
             Auction.belongsToMany(models.User, {
-                through: 'AuctionUser',
+                through: 'WinAuction',
                 foreignKey: 'userId'
             })
         }

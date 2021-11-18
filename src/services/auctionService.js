@@ -24,9 +24,10 @@ let getAuctionByBanner = (bannerId) => {
 let postWinAuction = (userId, auctionId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await db.AuctionUser.create({
+            await db.WinAuction.create({
                 userId: userId,
-                auctionId: auctionId
+                auctionId: auctionId,
+                status: 1
             })
             resolve("Created");
         } catch (e) {

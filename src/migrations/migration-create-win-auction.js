@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('Auction_User', {
+        await queryInterface.createTable('winauctions', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -15,10 +15,14 @@ module.exports = {
             auctionId: {
                 allowNull: false,
                 type: Sequelize.INTEGER
+            },
+            status: {
+                allowNull: false,
+                type: Sequelize.INTEGER
             }
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Auction_User');
+        await queryInterface.dropTable('winauctions');
     }
 };
