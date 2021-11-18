@@ -21,7 +21,10 @@ let getBannerByWebId = (webId) => {
                     webId: webId
                 },
                 include: [{
-                    model: db.Auction
+                    model: await db.Auction,
+                    where: {
+                        status: (1 || 0)
+                    }
                 }],
                 raw: true,
                 nest: true
