@@ -58,8 +58,31 @@ let getYourCart = (userId) => {
     })
 }
 
+let getYourOrder = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let order = await db.WinAuction.findAll({
+                where: {
+                    userId: userId,
+                    status: 0
+                },
+                include: [{
+                    model: await db.Auction,
+                    include: [{
+                        model: await db.Banner
+                    }],
+                }],
+            })
+            resolve(order);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
-    getYourCart: getYourCart
+    getYourCart: getYourCart,
+    getYourOrder: getYourOrder
 }

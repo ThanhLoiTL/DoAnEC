@@ -34,8 +34,22 @@ let getYourCart = async (req, res) => {
     });
 }
 
+let getYourOrder = async (req, res) => {
+    let idUser = req.query.id;
+    if (!idUser) {
+        return res.status(500).json({
+            message: 'Missing data'
+        });
+    }
+    let order = await webService.getYourOrder(idUser);
+    return res.status(200).json({
+        order
+    });
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
-    getYourCart: getYourCart
+    getYourCart: getYourCart,
+    getYourOrder: getYourOrder
 }

@@ -28,6 +28,8 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-your-cart', webController.getYourCart);
 
+    router.get('/api/get-your-order', webController.getYourOrder);
+
     return app.use("/", router);
 }
 
