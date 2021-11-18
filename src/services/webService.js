@@ -23,7 +23,7 @@ let getBannerByWebId = (webId) => {
                 include: [{
                     model: await db.Auction,
                     where: {
-                        status: (1 || 0)
+                        status: 1
                     }
                 }],
                 raw: true,
@@ -36,7 +36,30 @@ let getBannerByWebId = (webId) => {
     })
 }
 
+let getYourCart = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let cart = await db.WinAuction.findAll({
+                where: {
+                    userId: userId,
+                    status: 1
+                },
+                include: [{
+                    model: await db.Auction,
+                    include: [{
+                        model: await db.Banner
+                    }],
+                }],
+            })
+            resolve(cart);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
-    getBannerByWebId: getBannerByWebId
+    getBannerByWebId: getBannerByWebId,
+    getYourCart: getYourCart
 }

@@ -26,6 +26,8 @@ let initWebRoutes = (app) => {
 
     router.post('/api/postWinAuction', auctionController.postWinAuction);
 
+    router.get('/api/get-your-cart', webController.getYourCart);
+
     return app.use("/", router);
 }
 

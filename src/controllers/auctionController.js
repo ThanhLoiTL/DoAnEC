@@ -22,7 +22,8 @@ let postWinAuction = async (req, res) => {
             message: 'Missing value'
         });
     }
-    auctionService.postWinAuction(userId, auctionId);
+    let message = await auctionService.postWinAuction(userId, auctionId);
+    return res.status(200).json(message);
 }
 
 module.exports = {

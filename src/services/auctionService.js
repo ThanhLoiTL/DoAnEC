@@ -29,7 +29,9 @@ let postWinAuction = (userId, auctionId) => {
                 auctionId: auctionId,
                 status: 1
             })
-            resolve("Created");
+            resolve({
+                message: "OK"
+            });
         } catch (e) {
             reject(e);
         }

@@ -10,7 +10,7 @@ let getListWeb = async (req, res) => {
 let getBannerByWebId = async (req, res) => {
     let webId = req.query.id;
     if (!webId) {
-        return res.status(404).json({
+        return res.status(500).json({
             errCode: 1,
             message: 'Missing data'
         })
@@ -21,7 +21,21 @@ let getBannerByWebId = async (req, res) => {
     });
 }
 
+let getYourCart = async (req, res) => {
+    let idUser = req.query.id;
+    if (!idUser) {
+        return res.status(500).json({
+            message: 'Missing data'
+        });
+    }
+    let cart = await webService.getYourCart(idUser);
+    return res.status(200).json({
+        cart
+    });
+}
+
 module.exports = {
     getListWeb: getListWeb,
-    getBannerByWebId: getBannerByWebId
+    getBannerByWebId: getBannerByWebId,
+    getYourCart: getYourCart
 }
