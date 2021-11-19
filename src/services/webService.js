@@ -87,14 +87,29 @@ let checkoutOrder = (userId, auctionId, yourBanner) => {
             let winAuction = await db.WinAuction.findOne({
                 where: {
                     userId: userId,
-                    auctionId: auctionId
+                    auctionId: auctionId,
+                    status: 1
                 }
             });
+            let infoAuction = await db.Auction.findOne({
+                where: {
+                    id: auctionId
+                }
+            });
+
+            let user = await db.User.findOne({
+                where: {
+                    id: userId
+                }
+            })
+
             if (!winAuction) {
                 mess = "That Bai";
             } else {
                 winAuction.yourBanner = yourBanner;
-                winAuction.status = 0
+                winAuction.status = 0;
+                user.money -= infoAuction.auctionMoney;
+                await user.save();
                 await winAuction.save();
                 mess = "Thanh cong";
             }
