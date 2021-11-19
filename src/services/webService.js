@@ -106,12 +106,17 @@ let checkoutOrder = (userId, auctionId, yourBanner) => {
             if (!winAuction) {
                 mess = "That Bai";
             } else {
-                winAuction.yourBanner = yourBanner;
-                winAuction.status = 0;
-                user.money -= infoAuction.auctionMoney;
-                await user.save();
-                await winAuction.save();
-                mess = "Thanh cong";
+                if (user.money >= infoAuction.auctionMoney) {
+                    winAuction.yourBanner = yourBanner;
+                    winAuction.status = 0;
+                    user.money -= infoAuction.auctionMoney;
+                    await user.save();
+                    await winAuction.save();
+                    mess = "Thanh cong";
+                } else {
+                    mess = "Khong du tien";
+                }
+
             }
             resolve({
                 message: mess

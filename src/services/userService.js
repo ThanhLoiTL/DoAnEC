@@ -149,9 +149,32 @@ let getUserInAuction = (userId) => {
     });
 }
 
+let recharge = (userId, money) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let mess;
+            let user = await db.User.findOne({
+                where: {
+                    id: userId
+                }
+            });
+            if (!user) {
+                mess = "That bai";
+            } else {
+                user.money += money;
+                mess = "Thanh cong";
+            }
+            resolve(mess);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleRegister: handleRegister,
     getUser: getUser,
-    getUserInAuction: getUserInAuction
+    getUserInAuction: getUserInAuction,
+    recharge: recharge
 }

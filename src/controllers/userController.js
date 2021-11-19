@@ -41,8 +41,22 @@ let getUser = async (req, res) => {
     });
 }
 
+let recharge = async (req, res) => {
+    let userId = req.body.userId;
+    let money = req.body.money;
+    if (!userId || !money) {
+        return res.status(500).json({
+            errCode: 1,
+            message: "Missing data"
+        });
+    }
+    let message = await userService.recharge(userId, money);
+    return res.status(200).json(message);
+}
+
 module.exports = {
     handleLogin: handleLogin,
     handleRegister: handleRegister,
-    getUser: getUser
+    getUser: getUser,
+    recharge: recharge
 }

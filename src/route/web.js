@@ -32,6 +32,8 @@ let initWebRoutes = (app) => {
 
     router.put('/api/checkout', webController.checkoutOrder);
 
+    router.put('/api/recharge', userController.recharge);
+
     return app.use("/", router);
 }
 
