@@ -47,9 +47,23 @@ let getYourOrder = async (req, res) => {
     });
 }
 
+let checkoutOrder = async (req, res) => {
+    let userId = req.body.userId;
+    let auctionId = req.body.auctionId;
+    let yourBanner = req.body.yourBanner;
+    if (!userId || !auctionId || !yourBanner) {
+        return res.status(500).json({
+            message: 'Missing value'
+        });
+    }
+    let message = await webService.checkoutOrder(userId, auctionId, yourBanner);
+    return res.status(200).json(message);
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
-    getYourOrder: getYourOrder
+    getYourOrder: getYourOrder,
+    checkoutOrder: checkoutOrder
 }

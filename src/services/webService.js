@@ -80,9 +80,37 @@ let getYourOrder = (userId) => {
     })
 }
 
+let checkoutOrder = (userId, auctionId, yourBanner) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let mess;
+            let winAuction = await db.WinAuction.findOne({
+                where: {
+                    userId: userId,
+                    auctionId: auctionId
+                }
+            });
+            if (!winAuction) {
+                mess = "That Bai";
+            } else {
+                winAuction.yourBanner = yourBanner;
+                winAuction.status = 0
+                await winAuction.save();
+                mess = "Thanh cong";
+            }
+            resolve({
+                message: mess
+            });
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
-    getYourOrder: getYourOrder
+    getYourOrder: getYourOrder,
+    checkoutOrder: checkoutOrder
 }
