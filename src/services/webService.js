@@ -24,7 +24,7 @@ let getBannerByWebId = (webId, status) => {
                 include: [{
                     model: await db.Auction,
                     where: {
-                        status: 1
+                        status: status
                     }
                 }],
                 raw: true,
@@ -143,11 +143,27 @@ let getWeb = (webId) => {
     })
 }
 
+let getWebByCategory = (categoryId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let listWeb = await db.Web.findAll({
+                where: {
+                    categoryId: categoryId
+                }
+            });
+            resolve(listWeb);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
     getYourOrder: getYourOrder,
     checkoutOrder: checkoutOrder,
-    getWeb: getWeb
+    getWeb: getWeb,
+    getWebByCategory: getWebByCategory
 }

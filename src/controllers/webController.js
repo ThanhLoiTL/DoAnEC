@@ -72,11 +72,23 @@ let getWeb = async (req, res) => {
     return res.status(200).json(web ? web : {});
 }
 
+let getWebByCategory = async (req, res) => {
+    let categoryId = req.query.categoryId;
+    if (!category) {
+        return res.status(500).json({
+            message: 'Invalid category'
+        });
+    }
+    let webs = await webService.getWebByCategory(categoryId);
+    return res.status(200).json(listWeb ? webs : []);
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
     getYourOrder: getYourOrder,
     checkoutOrder: checkoutOrder,
-    getWeb: getWeb
+    getWeb: getWeb,
+    getWebByCategory: getWebByCategory
 }

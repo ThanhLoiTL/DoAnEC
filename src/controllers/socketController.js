@@ -1,5 +1,6 @@
 import socketService from '../services/socketService';
 import userService from '../services/userService';
+var clock = require('date-events')()
 var data = [];
 var idBanner;
 let getSocket = (io) => {
@@ -7,7 +8,6 @@ let getSocket = (io) => {
         console.log("Co nguoi dang ket noi");
 
         socket.on("SendToServer", async (idAuction, price, idUser) => {
-
             let auction = await socketService.setPriceAuction(idAuction, price, idUser);
             let u = await userService.getUserInAuction(idUser);
             idBanner = auction.bannerId;
@@ -47,6 +47,40 @@ let getSocket = (io) => {
     });
 }
 
+let getEventDate = () => {
+    //let date = Date.now();
+    //let d = format(date, 'yyyy-MM-dd HH:mm:ss');
+    //console.log(d);
+    clock.on('*:*', async function (date) {
+        let auctionL = await socketService.getListAuction(0);
+        let auctioning = await socketService.getListAuction(1);
+        if (auctionL.length > 0) {
+            let d = new Date(auctionL[0].timeStart);
+            if (d.getHours() === date.getHours() && d.getMinutes() === date.getMinutes()) {
+                // console.log(d.getYear());
+                // console.log(d.getMonth());
+                // console.log(d.getDate());
+                console.log(d.getHours());
+                console.log(d.getMinutes());
+                socketService.setStatusAuction(auctionL[0].id, 1);
+            }
+        }
+        if (auctioning.length > 0) {
+            let dEnd = new Date(auctioning[0].timeEnd);
+            if (dEnd.getHours() === date.getHours() && dEnd.getMinutes() === date.getMinutes()) {
+                // console.log(d.getYear());
+                // console.log(d.getMonth());
+                // console.log(d.getDate());
+                console.log(dEnd.getHours());
+                console.log(dEnd.getMinutes());
+                socketService.setStatusAuction(auctioning[0].id, 2);
+            }
+        }
+        //clock.removeAllListeners()
+    })
+}
+
 module.exports = {
     getSocket: getSocket,
+    getEventDate: getEventDate
 }

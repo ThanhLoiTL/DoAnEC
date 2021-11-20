@@ -21,6 +21,41 @@ let setPriceAuction = (idAuction, price) => {
     })
 }
 
+let setStatusAuction = (idAuction, status) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let auction = await db.Auction.findOne({
+                where: {
+                    id: idAuction
+                }
+            })
+            auction.status = status;
+            await auction.save();
+            resolve();
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let getListAuction = (status) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let auctionL = await db.Auction.findAll({
+                where: {
+                    status: status
+                },
+                raw: true
+            })
+            resolve(auctionL);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
-    setPriceAuction: setPriceAuction
+    setPriceAuction: setPriceAuction,
+    setStatusAuction: setStatusAuction,
+    getListAuction: getListAuction
 }

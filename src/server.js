@@ -5,6 +5,7 @@ import initWebRoutes from './route/web';
 import connectDB from './config/connectDB';
 import cors from 'cors';
 import initSocket from './socket/initSocket';
+
 require('dotenv').config();
 
 let app = express();
@@ -28,7 +29,7 @@ initSocket(io);
 
 connectDB();
 
-let port = process.env.PORT || 8082;
+let port = process.env.PORT || 8081;
 
 server.listen(port, () => {
     console.log('Nodejs is running on the port : ' + port);
