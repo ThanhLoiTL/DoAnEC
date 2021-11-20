@@ -162,6 +162,7 @@ let recharge = (userId, money) => {
                 mess = "That bai";
             } else {
                 user.money += money;
+                await user.save();
                 mess = "Thanh cong";
             }
             resolve(mess);

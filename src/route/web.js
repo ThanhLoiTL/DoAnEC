@@ -34,6 +34,10 @@ let initWebRoutes = (app) => {
 
     router.put('/api/recharge', userController.recharge);
 
+    router.get('/api/get-banner-hired', webController.getBannerHired);
+
+    router.get('/api/get-banner-will-auction', webController.getBannerWillAuction);
+
     return app.use("/", router);
 }
 

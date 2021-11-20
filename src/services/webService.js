@@ -13,12 +13,13 @@ let getListWeb = () => {
     });
 }
 
-let getBannerByWebId = (webId) => {
+let getBannerByWebId = (webId, status) => {
     return new Promise(async (resolve, reject) => {
         try {
             let listBanner = await db.Banner.findAll({
                 where: {
-                    webId: webId
+                    webId: webId,
+                    status: status
                 },
                 include: [{
                     model: await db.Auction,

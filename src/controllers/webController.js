@@ -9,13 +9,14 @@ let getListWeb = async (req, res) => {
 
 let getBannerByWebId = async (req, res) => {
     let webId = req.query.id;
-    if (!webId) {
+    let status = req.query.status;
+    if (!webId || !status) {
         return res.status(500).json({
             errCode: 1,
             message: 'Missing data'
         })
     }
-    let listBanner = await webService.getBannerByWebId(webId);
+    let listBanner = await webService.getBannerByWebId(webId, status);
     return res.status(200).json({
         listBanner: listBanner ? listBanner : []
     });
