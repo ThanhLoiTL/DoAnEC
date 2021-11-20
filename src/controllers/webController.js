@@ -61,10 +61,22 @@ let checkoutOrder = async (req, res) => {
     return res.status(200).json(message);
 }
 
+let getWeb = async (req, res) => {
+    let webId = req.query.webId;
+    if (!webId) {
+        return res.status(500).json({
+            message: 'Invalid web'
+        });
+    }
+    let web = await webService.getWeb(webId);
+    return res.status(200).json(web ? web : {});
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
     getYourOrder: getYourOrder,
-    checkoutOrder: checkoutOrder
+    checkoutOrder: checkoutOrder,
+    getWeb: getWeb
 }

@@ -128,10 +128,26 @@ let checkoutOrder = (userId, auctionId, yourBanner) => {
     })
 }
 
+let getWeb = (webId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let web = await db.Web.findOne({
+                where: {
+                    id: webId
+                }
+            })
+            resolve(web);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
     getYourCart: getYourCart,
     getYourOrder: getYourOrder,
-    checkoutOrder: checkoutOrder
+    checkoutOrder: checkoutOrder,
+    getWeb: getWeb
 }

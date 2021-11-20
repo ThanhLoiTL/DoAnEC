@@ -38,6 +38,8 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-banner-will-auction', webController.getBannerWillAuction);
 
+    router.get('/api/get-web', webController.getWeb);
+
     return app.use("/", router);
 }
 
