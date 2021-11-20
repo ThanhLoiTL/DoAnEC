@@ -38,6 +38,8 @@ let initWebRoutes = (app) => {
 
     router.get('/api/get-web-by-category', webController.getWebByCategory);
 
+    router.get('/api/get-auction-by-status', webController.getAuctionByStatus);
+
     return app.use("/", router);
 }
 

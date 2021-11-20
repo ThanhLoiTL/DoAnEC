@@ -56,26 +56,22 @@ let getEventDate = () => {
         let auctioning = await socketService.getListAuction(1);
         if (auctionL.length > 0) {
             let d = new Date(auctionL[0].timeStart);
-            if (d.getHours() === date.getHours() && d.getMinutes() === date.getMinutes()) {
-                // console.log(d.getYear());
-                // console.log(d.getMonth());
-                // console.log(d.getDate());
-                console.log(d.getHours());
-                console.log(d.getMinutes());
-                socketService.setStatusAuction(auctionL[0].id, 1);
+            if (d.getFullYear() === date.getFullYear() && (d.getMonth()) === date.getMonth() &&
+                d.getDate() === date.getDate() && d.getHours() === date.getHours() &&
+                d.getMinutes() === date.getMinutes()) {
+                socketService.setStatusAuction(auctionL[0].id, 1, 1);
             }
+
         }
         if (auctioning.length > 0) {
             let dEnd = new Date(auctioning[0].timeEnd);
-            if (dEnd.getHours() === date.getHours() && dEnd.getMinutes() === date.getMinutes()) {
-                // console.log(d.getYear());
-                // console.log(d.getMonth());
-                // console.log(d.getDate());
-                console.log(dEnd.getHours());
-                console.log(dEnd.getMinutes());
-                socketService.setStatusAuction(auctioning[0].id, 2);
+            if (dEnd.getFullYear() === date.getFullYear() && (dEnd.getMonth()) === date.getMonth() &&
+                dEnd.getDate() === date.getDate() && dEnd.getHours() === date.getHours() &&
+                dEnd.getMinutes() === date.getMinutes()) {
+                socketService.setStatusAuction(auctioning[0].id, 2, 0);
             }
         }
+
         //clock.removeAllListeners()
     })
 }

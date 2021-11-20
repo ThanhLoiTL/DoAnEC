@@ -74,13 +74,28 @@ let getWeb = async (req, res) => {
 
 let getWebByCategory = async (req, res) => {
     let categoryId = req.query.categoryId;
-    if (!category) {
+    if (!categoryId) {
         return res.status(500).json({
             message: 'Invalid category'
         });
     }
     let webs = await webService.getWebByCategory(categoryId);
-    return res.status(200).json(listWeb ? webs : []);
+    return res.status(200).json({
+        listWeb: webs ? webs : []
+    });
+}
+
+let getAuctionByStatus = async (req, res) => {
+    let status = req.query.status;
+    if (!status) {
+        return res.status(500).json({
+            message: 'Invalid'
+        });
+    }
+    let auction = await webService.getAuctionByStatus(status);
+    return res.status(200).json({
+        auction: auction ? auction : []
+    });
 }
 
 module.exports = {
@@ -90,5 +105,6 @@ module.exports = {
     getYourOrder: getYourOrder,
     checkoutOrder: checkoutOrder,
     getWeb: getWeb,
-    getWebByCategory: getWebByCategory
+    getWebByCategory: getWebByCategory,
+    getAuctionByStatus: getAuctionByStatus
 }

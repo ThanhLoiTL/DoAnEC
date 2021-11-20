@@ -21,7 +21,7 @@ let setPriceAuction = (idAuction, price) => {
     })
 }
 
-let setStatusAuction = (idAuction, status) => {
+let setStatusAuction = (idAuction, statusAuction, statusBanner) => {
     return new Promise(async (resolve, reject) => {
         try {
             let auction = await db.Auction.findOne({
@@ -29,8 +29,19 @@ let setStatusAuction = (idAuction, status) => {
                     id: idAuction
                 }
             })
-            auction.status = status;
-            await auction.save();
+            if (auction) {
+                let banner = await db.Banner.findOne({
+                    where: {
+                        id: auction.bannerId
+                    }
+                });
+                if (banner) {
+                    banner.status = statusBanner;
+                    auction.status = statusAuction;
+                    await auction.save();
+                    await banner.save();
+                }
+            }
             resolve();
         } catch (e) {
             reject(e);

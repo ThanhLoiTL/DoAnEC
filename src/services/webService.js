@@ -158,6 +158,26 @@ let getWebByCategory = (categoryId) => {
     })
 }
 
+let getAuctionByStatus = (status) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let listAuction = await db.Auction.findAll({
+                where: {
+                    status: status
+                },
+                include: [{
+                    model: await db.Banner
+                }],
+                raw: true,
+                nest: true
+            })
+            resolve(listAuction);
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     getListWeb: getListWeb,
     getBannerByWebId: getBannerByWebId,
@@ -165,5 +185,6 @@ module.exports = {
     getYourOrder: getYourOrder,
     checkoutOrder: checkoutOrder,
     getWeb: getWeb,
-    getWebByCategory: getWebByCategory
+    getWebByCategory: getWebByCategory,
+    getAuctionByStatus: getAuctionByStatus
 }
