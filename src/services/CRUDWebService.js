@@ -83,7 +83,8 @@ let getAllWeb = () => {
                 include: [{
                     model: await db.CategoryWeb
                 }],
-                raw: true
+                raw: true,
+                nest: true
             });
             resolve(allWeb);
         } catch (e) {

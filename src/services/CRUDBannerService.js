@@ -26,10 +26,10 @@ let postBanner = (data) => {
     })
 }
 
-let updateBanner = async (data) => {
+let updateBanner = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (data.id && data.name && data.size && data.price && data.image && data.time && data.status && data.webId) {
+            if (data.id && data.name && data.size && data.price && data.image && data.time && data.webId) {
                 let banner = await db.Banner.findOne({
                     where: {
                         id: data.id
@@ -89,7 +89,8 @@ let getAllBanner = () => {
                 include: [{
                     model: await db.Web
                 }],
-                raw: true
+                raw: true,
+                nest: true
             });
             resolve(allBanner);
         } catch (e) {

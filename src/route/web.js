@@ -8,6 +8,8 @@ import CRUDBannerController from "../controllers/CRUDBannerController";
 import CRUDUserController from "../controllers/CRUDUserController";
 import CRUDRoleController from "../controllers/CRUDRoleController";
 import CRUDCategoryController from "../controllers/CRUDCategoryController";
+import CRUDWinAuctionController from "../controllers/CRUDWinAuctionController";
+import CRUDAuctionController from "../controllers/CRUDAuctionController";
 
 let router = express.Router();
 
@@ -28,21 +30,13 @@ let initWebRoutes = (app) => {
     router.get('/api/get-webs', webController.getListWeb);
     router.get('/api/get-banner-by-webId', webController.getBannerByWebId);
     router.get('/api/get-auction-by-banner', auctionController.getAuctionByBanner);
-
     router.post('/api/postWinAuction', auctionController.postWinAuction);
-
     router.get('/api/get-your-cart', webController.getYourCart);
-
     router.get('/api/get-your-order', webController.getYourOrder);
-
     router.put('/api/checkout', webController.checkoutOrder);
-
     router.put('/api/recharge', userController.recharge);
-
     router.get('/api/get-web', webController.getWeb);
-
     router.get('/api/get-web-by-category', webController.getWebByCategory);
-
     router.get('/api/get-auction-by-status', webController.getAuctionByStatus);
 
     //API ADMIN
@@ -73,6 +67,14 @@ let initWebRoutes = (app) => {
     router.post('/admin/api/post-category', CRUDCategoryController.postCategory);
     router.put('/admin/api/put-category', CRUDCategoryController.updateCategory);
     router.delete('/admin/api/delete-category', CRUDCategoryController.deleteCategory);
+
+    //API CRUD Win Auction
+    router.get('/admin/api/get-all-win-auction', CRUDWinAuctionController.getAllWinAuction);
+    router.get('/admin/api/get-win-auction-by-user', CRUDWinAuctionController.getWinAuctionByUser);
+
+    //API CRUD Auction
+    router.get('/admin/api/get-all-auction', CRUDAuctionController.getAllAuction);
+    router.get('/admin/api/get-will-auction', CRUDAuctionController.getWillAuction);
 
     return app.use("/", router);
 }

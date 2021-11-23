@@ -127,7 +127,8 @@ let getAllUser = () => {
                 raw: true,
                 include: [{
                     model: await db.Role
-                }]
+                }],
+                nest: true
             });
             resolve(allUser);
         } catch (e) {
