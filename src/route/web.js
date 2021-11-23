@@ -6,6 +6,7 @@ import auctionController from "../controllers/auctionController";
 import CRUDWebController from "../controllers/CRUDWebController";
 import CRUDBannerController from "../controllers/CRUDBannerController";
 import CRUDUserController from "../controllers/CRUDUserController";
+import CRUDRoleController from "../controllers/CRUDRoleController";
 
 let router = express.Router();
 
@@ -62,6 +63,9 @@ let initWebRoutes = (app) => {
     router.post('/admin/api/post-user', CRUDUserController.postUser);
     router.put('/admin/api/put-user', CRUDUserController.updateUser);
     router.get('/admin/api/delete-user', CRUDUserController.deleteUser);
+
+    //API CRUD Role
+    router.get('/admin/api/get-all-role', CRUDRoleController.getAllRole);
 
     return app.use("/", router);
 }
