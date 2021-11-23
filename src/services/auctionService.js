@@ -1,5 +1,7 @@
 import db from '../models/index';
 
+let day = 15;
+
 let getAuctionByBanner = (bannerId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -24,14 +26,16 @@ let getAuctionByBanner = (bannerId) => {
 let postWinAuction = (userId, auctionId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let mess;
             let check = await db.WinAuction.create({
                 userId: userId,
                 auctionId: auctionId,
                 status: 1
             })
             if (!check) {
-                mess = "That bai";
+                resolve({
+                    message: "That bai"
+                });
+
             } else {
                 let auction = await db.Auction.findOne({
                     where: {
@@ -48,27 +52,29 @@ let postWinAuction = (userId, auctionId) => {
                         }
                     });
                     if (banner) {
-                        let date = new Date(banner.time);
-                        banner.time = date.addDays(15);
+                        let timeS = new Date(auction.timeStart);
+                        let timeE = new Date(auction.timeEnd);
+                        banner.time = timeS.addDays(day);
                         banner.status = 0;
                         await banner.save();
-
-                        let auction = await db.Auction.create({
-                            timeStart: "00:00:00",
-                            timeEnd: "00:00:00",
+                        let auct = await db.Auction.create({
+                            timeStart: timeS.addDays(day),
+                            timeEnd: timeE.addDays(day),
                             status: 0,
                             date: banner.time,
                             auctionMoney: banner.price,
                             bannerId: banner.id
                         })
-                        if (auction) {
-                            mess = "Thanh cong";
+                        if (auct) {
+                            resolve({
+                                message: "Thanh cong"
+                            });
                         }
                     }
                 }
             }
             resolve({
-                message: mess
+                message: "That bai"
             });
         } catch (e) {
             reject(e);

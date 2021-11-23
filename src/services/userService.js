@@ -87,6 +87,7 @@ let handleRegister = (data) => {
                 password: hashPasswordFormBcrypt,
                 phone: data.phone,
                 address: data.address,
+                money: 0,
                 roleId: 2
             })
             resolve({

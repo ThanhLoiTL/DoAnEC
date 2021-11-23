@@ -11,7 +11,7 @@ let getSocket = (io) => {
             let auction = await socketService.setPriceAuction(idAuction, price, idUser);
             let u = await userService.getUserInAuction(idUser);
             idBanner = auction.bannerId;
-            var date = new Date();
+
             const date3 = new Date();
             const yyyy = date3.getFullYear();
             const mmm = date3.getMonth();
@@ -19,12 +19,12 @@ let getSocket = (io) => {
             const hh = date3.getHours();
             const mm = date3.getMinutes();
             const ss = date3.getSeconds();
-            const dateText = `${dd}-${mmm + 1}-${yyyy} vào lúc ${hh}:${mm}:${ss}`
-            var parts = auction.timeEnd.split(':');
-            var minutes = parts[0] * 60 * 60 + parts[1] * 60 + parts[2];
-            var m = date.getMinutes() * 60 + date.getHours() * 60 * 60 + date.getSeconds();
+            const dateText = `${dd}-${mmm + 1}-${yyyy} +vào lúc ${hh}:${mm}:${ss}`;
 
-            if (minutes <= m) {
+            var timeEnd = new Date(auction.timeEnd);
+            var dateNow = Date.now();
+
+            if (dateNow > timeEnd) {
                 data = [];
             }
             var obj = {
@@ -53,25 +53,45 @@ let getEventDate = () => {
     //console.log(d);
     clock.on('*:*', async function (date) {
         let auctionL = await socketService.getListAuction(0);
+        let auction;
+        let timeAuction;
+        let time1
+        let result;
         let auctioning = await socketService.getListAuction(1);
         if (auctionL.length > 0) {
-            let d = new Date(auctionL[0].timeStart);
-            if (d.getFullYear() === date.getFullYear() && (d.getMonth()) === date.getMonth() &&
-                d.getDate() === date.getDate() && d.getHours() === date.getHours() &&
-                d.getMinutes() === date.getMinutes()) {
-                socketService.setStatusAuction(auctionL[0].id, 1, 1);
+            timeAuction = new Date(auctionL[0].timeStart);
+            auction = auctionL[0];
+            for (let i = 1; i < auctionL.length; i++) {
+                result = timeAuction - date;
+                time1 = new Date(auctionL[i].timeStart);
+                if (result > (time1 - date)) {
+                    timeAuction = new Date(auctionL[i].timeStart);
+                    auction = auctionL[i];
+                }
             }
-
+            if (timeAuction.getFullYear() === date.getFullYear() && (timeAuction.getMonth()) === date.getMonth() &&
+                timeAuction.getDate() === date.getDate() && timeAuction.getHours() === date.getHours() &&
+                timeAuction.getMinutes() === date.getMinutes()) {
+                socketService.setStatusAuction(auction.id, 1, 1);
+            }
         }
         if (auctioning.length > 0) {
-            let dEnd = new Date(auctioning[0].timeEnd);
-            if (dEnd.getFullYear() === date.getFullYear() && (dEnd.getMonth()) === date.getMonth() &&
-                dEnd.getDate() === date.getDate() && dEnd.getHours() === date.getHours() &&
-                dEnd.getMinutes() === date.getMinutes()) {
-                socketService.setStatusAuction(auctioning[0].id, 2, 0);
+            timeAuction = new Date(auctioning[0].timeEnd);
+            auction = auctioning[0];
+            for (let i = 1; i < auctioning.length; i++) {
+                result = timeAuction - date;
+                time1 = new Date(auctionL[i].timeEnd);
+                if (result > (time1 - date)) {
+                    timeAuction = new Date(auctionL[i].timeEnd);
+                    auction = auctioning[i];
+                }
+            }
+            if (timeAuction.getFullYear() === date.getFullYear() && (timeAuction.getMonth()) === date.getMonth() &&
+                timeAuction.getDate() === date.getDate() && timeAuction.getHours() === date.getHours() &&
+                timeAuction.getMinutes() === timeAuction.getMinutes()) {
+                socketService.setStatusAuction(auction.id, 2, 0);
             }
         }
-
         //clock.removeAllListeners()
     })
 }

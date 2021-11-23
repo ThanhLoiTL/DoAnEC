@@ -3,6 +3,9 @@ import homeController from "../controllers/homeController";
 import userController from "../controllers/userController";
 import webController from "../controllers/webController";
 import auctionController from "../controllers/auctionController";
+import CRUDWebController from "../controllers/CRUDWebController";
+import CRUDBannerController from "../controllers/CRUDBannerController";
+import CRUDUserController from "../controllers/CRUDUserController";
 
 let router = express.Router();
 
@@ -15,7 +18,7 @@ let initWebRoutes = (app) => {
     router.post('/put-user', homeController.putUser);
     router.get('/delete-user', homeController.deleteUserById);
 
-    //API
+    //API WEB
     router.post('/api/login', userController.handleLogin);
     router.post('/api/register', userController.handleRegister);
     router.get('/api/get-user', userController.getUser);
@@ -39,6 +42,26 @@ let initWebRoutes = (app) => {
     router.get('/api/get-web-by-category', webController.getWebByCategory);
 
     router.get('/api/get-auction-by-status', webController.getAuctionByStatus);
+
+    //API ADMIN
+
+    //API CRUD Web
+    router.get('/admin/api/get-all-web', CRUDWebController.getAllWeb);
+    router.post('/admin/api/post-web', CRUDWebController.postWeb);
+    router.put('/admin/api/put-web', CRUDWebController.updateWeb);
+    router.get('/admin/api/detele-web', CRUDWebController.deleteWeb);
+
+    //API CRUD Banner
+    router.get('/admin/api/get-all-banner', CRUDBannerController.getAllBanner);
+    router.post('/admin/api/post-banner', CRUDBannerController.postBanner);
+    router.put('/admin/api/put-banner', CRUDBannerController.updateBanner);
+    router.get('/admin/api/detele-banner', CRUDBannerController.deleteBanner);
+
+    //API CRUD User
+    router.get('/admin/api/get-all-user', CRUDUserController.getAllUser);
+    router.post('/admin/api/post-user', CRUDUserController.postUser);
+    router.put('/admin/api/put-user', CRUDUserController.updateUser);
+    router.get('/admin/api/delete-user', CRUDUserController.deleteUser);
 
     return app.use("/", router);
 }
