@@ -16,10 +16,6 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.DATE
             },
-            date: {
-                allowNull: false,
-                type: Sequelize.DATE
-            },
             status: {
                 allowNull: false,
                 type: Sequelize.INTEGER

@@ -8,7 +8,7 @@ let getAllWinAuction = async (req, res) => {
 }
 
 let getWinAuctionByUser = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.userId;
     let listWinAuction = await CRUDWinAuctionService.getWinAuctionByUser(id);
     return res.status(200).json({
         listWinAuction: listWinAuction ? listWinAuction : []

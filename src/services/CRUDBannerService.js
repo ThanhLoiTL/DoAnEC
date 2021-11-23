@@ -3,13 +3,12 @@ import db from '../models/index';
 let postBanner = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (data.name && data.size && data.price && data.image && data.status && data.time && data.webId) {
+            if (data.name && data.size && data.price && data.image && data.status && data.webId) {
                 await db.Banner.create({
                     name: data.name,
                     size: data.size,
                     price: data.price,
                     image: data.image,
-                    time: data.time,
                     status: data.status,
                     webId: data.webId
                 })
@@ -29,7 +28,7 @@ let postBanner = (data) => {
 let updateBanner = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (data.id && data.name && data.size && data.price && data.image && data.time && data.webId) {
+            if (data.id && data.name && data.size && data.price && data.image && data.webId) {
                 let banner = await db.Banner.findOne({
                     where: {
                         id: data.id
@@ -40,7 +39,6 @@ let updateBanner = (data) => {
                     banner.size = data.size;
                     banner.price = data.price;
                     banner.image = data.image;
-                    banner.time = data.time;
                     banner.status = data.status;
                     banner.webId = data.webId;
 

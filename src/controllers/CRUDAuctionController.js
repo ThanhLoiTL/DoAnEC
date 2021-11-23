@@ -17,7 +17,13 @@ let getWillAuction = async (req, res) => {
     }
 }
 
+let postAuction = async (req, res) => {
+    let message = await CRUDAuctionService.postAuction(req.body);
+    return res.status(200).json(message);
+}
+
 module.exports = {
     getAllAuction: getAllAuction,
-    getWillAuction: getWillAuction
+    getWillAuction: getWillAuction,
+    postAuction: postAuction
 }

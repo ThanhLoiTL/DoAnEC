@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     Auction.init({
         timeStart: DataTypes.DATE,
         timeEnd: DataTypes.DATE,
-        date: DataTypes.DATE,
         auctionMoney: DataTypes.BIGINT,
         status: DataTypes.INTEGER,
         bannerId: DataTypes.INTEGER

@@ -21,9 +21,6 @@ module.exports = {
             image: {
                 type: Sequelize.STRING
             },
-            time: {
-                type: Sequelize.DATE
-            },
             status: {
                 type: Sequelize.INTEGER
             },

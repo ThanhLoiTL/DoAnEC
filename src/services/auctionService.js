@@ -54,14 +54,12 @@ let postWinAuction = (userId, auctionId) => {
                     if (banner) {
                         let timeS = new Date(auction.timeStart);
                         let timeE = new Date(auction.timeEnd);
-                        banner.time = timeS.addDays(day);
                         banner.status = 0;
                         await banner.save();
                         let auct = await db.Auction.create({
                             timeStart: timeS.addDays(day),
                             timeEnd: timeE.addDays(day),
                             status: 0,
-                            date: banner.time,
                             auctionMoney: banner.price,
                             bannerId: banner.id
                         })

@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         size: DataTypes.STRING,
         price: DataTypes.BIGINT,
         image: DataTypes.STRING,
-        time: DataTypes.DATE,
         status: DataTypes.INTEGER,
         webId: DataTypes.INTEGER
     }, {

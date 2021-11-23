@@ -75,6 +75,7 @@ let initWebRoutes = (app) => {
     //API CRUD Auction
     router.get('/admin/api/get-all-auction', CRUDAuctionController.getAllAuction);
     router.get('/admin/api/get-will-auction', CRUDAuctionController.getWillAuction);
+    router.post('/admin/api/post-auction', CRUDAuctionController.postAuction);
 
     return app.use("/", router);
 }
