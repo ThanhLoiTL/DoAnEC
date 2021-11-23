@@ -86,6 +86,9 @@ let getAllBanner = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let allBanner = await db.Banner.findAll({
+                include: [{
+                    model: await db.Web
+                }],
                 raw: true
             });
             resolve(allBanner);

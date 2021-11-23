@@ -124,7 +124,10 @@ let getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let allUser = await db.User.findAll({
-                raw: true
+                raw: true,
+                include: [{
+                    model: await db.Role
+                }]
             });
             resolve(allUser);
         } catch (e) {

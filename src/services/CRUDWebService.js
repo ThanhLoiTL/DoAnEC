@@ -80,6 +80,9 @@ let getAllWeb = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let allWeb = await db.Web.findAll({
+                include: [{
+                    model: await db.CategoryWeb
+                }],
                 raw: true
             });
             resolve(allWeb);

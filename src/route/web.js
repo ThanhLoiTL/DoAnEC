@@ -7,6 +7,7 @@ import CRUDWebController from "../controllers/CRUDWebController";
 import CRUDBannerController from "../controllers/CRUDBannerController";
 import CRUDUserController from "../controllers/CRUDUserController";
 import CRUDRoleController from "../controllers/CRUDRoleController";
+import CRUDCategoryController from "../controllers/CRUDCategoryController";
 
 let router = express.Router();
 
@@ -50,22 +51,28 @@ let initWebRoutes = (app) => {
     router.get('/admin/api/get-all-web', CRUDWebController.getAllWeb);
     router.post('/admin/api/post-web', CRUDWebController.postWeb);
     router.put('/admin/api/put-web', CRUDWebController.updateWeb);
-    router.get('/admin/api/detele-web', CRUDWebController.deleteWeb);
+    router.delete('/admin/api/detele-web', CRUDWebController.deleteWeb);
 
     //API CRUD Banner
     router.get('/admin/api/get-all-banner', CRUDBannerController.getAllBanner);
     router.post('/admin/api/post-banner', CRUDBannerController.postBanner);
     router.put('/admin/api/put-banner', CRUDBannerController.updateBanner);
-    router.get('/admin/api/detele-banner', CRUDBannerController.deleteBanner);
+    router.delete('/admin/api/detele-banner', CRUDBannerController.deleteBanner);
 
     //API CRUD User
     router.get('/admin/api/get-all-user', CRUDUserController.getAllUser);
     router.post('/admin/api/post-user', CRUDUserController.postUser);
     router.put('/admin/api/put-user', CRUDUserController.updateUser);
-    router.get('/admin/api/delete-user', CRUDUserController.deleteUser);
+    router.delete('/admin/api/delete-user', CRUDUserController.deleteUser);
 
     //API CRUD Role
     router.get('/admin/api/get-all-role', CRUDRoleController.getAllRole);
+
+    //API CRUD Category
+    router.get('/admin/api/get-all-category', CRUDCategoryController.getAllCategory);
+    router.post('/admin/api/post-category', CRUDCategoryController.postCategory);
+    router.put('/admin/api/put-category', CRUDCategoryController.updateCategory);
+    router.delete('/admin/api/delete-category', CRUDCategoryController.deleteCategory);
 
     return app.use("/", router);
 }
