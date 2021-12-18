@@ -26,11 +26,22 @@ let getAuctionByBanner = (bannerId) => {
 let postWinAuction = (userId, auctionId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let check = await db.WinAuction.create({
-                userId: userId,
-                auctionId: auctionId,
-                status: 1
-            })
+            let check;
+            console.log(typeof userId);
+            console.log(userId);
+            if (userId === '999999') {
+                check = await db.WinAuction.create({
+                    userId: userId,
+                    auctionId: auctionId,
+                    status: 0
+                })
+            } else if (userId !== '999999') {
+                check = await db.WinAuction.create({
+                    userId: userId,
+                    auctionId: auctionId,
+                    status: 1
+                })
+            }
             if (!check) {
                 resolve({
                     message: "That bai"

@@ -88,7 +88,7 @@ let handleRegister = (data) => {
                 phone: data.phone,
                 address: data.address,
                 money: 0,
-                roleId: 2
+                roleId: 1
             })
             resolve({
                 errCode: 0,
