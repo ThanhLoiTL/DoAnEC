@@ -77,7 +77,7 @@ let initWebRoutes = (app) => {
     router.get('/admin/api/get-will-auction', CRUDAuctionController.getWillAuction);
     router.post('/admin/api/post-auction', CRUDAuctionController.postAuction);
     router.put('/admin/api/put-auction', CRUDAuctionController.updateAuction);
-    router.delete('/admin/api/delete-auction', CRUDAuction.deleteAuction);
+    router.delete('/admin/api/delete-auction', CRUDAuctionController.deleteAuction);
 
     return app.use("/", router);
 }

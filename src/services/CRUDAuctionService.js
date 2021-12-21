@@ -99,7 +99,7 @@ let updateAuction = (data) => {
     })
 }
 
-let deleteAuction = (auctionId) {
+let deleteAuction = (auctionId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let auction = await db.Auction.findOne({

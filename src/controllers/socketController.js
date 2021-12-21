@@ -1,6 +1,7 @@
 import socketService from '../services/socketService';
 import userService from '../services/userService';
 var clock = require('date-events')()
+const datedate = require('date-and-time')
 var data = [];
 var idBanner;
 let getSocket = (io) => {
@@ -44,6 +45,17 @@ let getSocket = (io) => {
             }
             io.sockets.emit("SendClient", data);
         });
+
+        // socket.on("PostWinAuction", async (data) => {
+        //     if (!data) {
+        //         return res.status(500).json({
+        //             message: 'Missing value'
+        //         });
+        //     }
+        //     console.log(data);
+        //     let message = await auctionService.postWinAuction(data);
+        //     //return res.status(200).json(message);
+        // });
     });
 }
 
@@ -52,47 +64,50 @@ let getEventDate = () => {
     //let d = format(date, 'yyyy-MM-dd HH:mm:ss');
     //console.log(d);
     clock.on('*:*', async function (date) {
-        let auctionL = await socketService.getListAuction(0);
+        let auctionList = await socketService.getListAuction(0);
         let auction;
         let timeAuction;
-        let time1
+        let time1;
         let result;
+
         let auctioning = await socketService.getListAuction(1);
-        if (auctionL.length > 0) {
-            timeAuction = new Date(auctionL[0].timeStart);
-            auction = auctionL[0];
-            for (let i = 1; i < auctionL.length; i++) {
+        if (auctionList.length > 0) {
+            timeAuction = new Date(auctionList[0].timeStart);
+            auction = auctionList[0];
+            for (let i = 1; i < auctionList.length; i++) {
                 result = timeAuction - date;
-                time1 = new Date(auctionL[i].timeStart);
+                time1 = new Date(auctionList[i].timeStart);
                 if (result > (time1 - date)) {
-                    timeAuction = new Date(auctionL[i].timeStart);
-                    auction = auctionL[i];
+                    timeAuction = new Date(auctionList[i].timeStart);
+                    auction = auctionList[i];
                 }
             }
-            if (timeAuction.getFullYear() === date.getFullYear() && (timeAuction.getMonth()) === date.getMonth() &&
-                timeAuction.getDate() === date.getDate() && timeAuction.getHours() === date.getHours() &&
-                timeAuction.getMinutes() === date.getMinutes()) {
+            if (timeAuction.getFullYear() == date.getFullYear() && (timeAuction.getMonth()) == date.getMonth() &&
+                timeAuction.getDate() == date.getDate() && timeAuction.getHours() == date.getHours() &&
+                timeAuction.getMinutes() == date.getMinutes()) {
                 socketService.setStatusAuction(auction.id, 1, 1);
             }
         }
+
         if (auctioning.length > 0) {
             timeAuction = new Date(auctioning[0].timeEnd);
+            // console.log(timeAuction.getTime());
+            // console.log(date.getTime());
             auction = auctioning[0];
             for (let i = 1; i < auctioning.length; i++) {
                 result = timeAuction - date;
-                time1 = new Date(auctionL[i].timeEnd);
+                time1 = new Date(auctioning[i].timeEnd);
                 if (result > (time1 - date)) {
-                    timeAuction = new Date(auctionL[i].timeEnd);
+                    timeAuction = new Date(auctioning[i].timeEnd);
                     auction = auctioning[i];
                 }
             }
-            if (timeAuction.getFullYear() === date.getFullYear() && (timeAuction.getMonth()) === date.getMonth() &&
-                timeAuction.getDate() === date.getDate() && timeAuction.getHours() === date.getHours() &&
-                timeAuction.getMinutes() === timeAuction.getMinutes()) {
+            if (timeAuction.getFullYear() == date.getFullYear() && (timeAuction.getMonth()) == date.getMonth() &&
+                timeAuction.getDate() == date.getDate() && timeAuction.getHours() == date.getHours() &&
+                timeAuction.getMinutes() == date.getMinutes()) {
                 socketService.setStatusAuction(auction.id, 2, 0);
             }
         }
-        //clock.removeAllListeners()
     })
 }
 
